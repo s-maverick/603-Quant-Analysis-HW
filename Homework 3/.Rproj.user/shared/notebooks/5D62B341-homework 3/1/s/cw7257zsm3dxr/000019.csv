@@ -1,0 +1,10 @@
+"0","ggplot(UN11, aes(x = log(ppgdp),"
+"0","                y = log(lifeExpF))) +"
+"0","  geom_point() +"
+"0","    geom_smooth(method = 'lm') +"
+"0","  labs(x = ""Female life expectancy in years"","
+"0","       y = ""Per capita gross domestic product in US dollars"","
+"0","       title = ""Relationship between lifeExpF and ppgdp"") +"
+"0","  theme_bw()"
+"1","[38;5;232m`geom_smooth()` using formula = 'y ~ x'[39m
+"

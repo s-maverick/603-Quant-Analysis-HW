@@ -1,0 +1,208 @@
+---
+title: "Homework 3"
+author: "Sangam Patil"
+date: "06 April 2025"
+format: html
+editor: visual
+---
+
+```{r}
+library("alr4")
+library("smss")
+library("ggplot2")
+library("tidyr")
+```
+
+### Question 1
+
+```{r}
+data(UN11)
+head(UN11)
+```
+
+```{r}
+summary(UN11)
+```
+
+###### (a) Identify the predictor and the response.
+Here, lifeExpF i.e female life expectancy can be response variable and almost all other variables can be predictors.
+
+###### (b)  Scatterplot of female life expectancy (lifeExpF) versus Per capita gross domestic product in US dollars (ppgdp)
+
+```{r}
+ggplot(UN11, aes(x = ppgdp,
+                y = lifeExpF)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  labs(x = "Female life expectancy in years",
+       y = "Per capita gross domestic product in US dollars",
+       title = "Relationship between lifeExpF and ppgdp") +
+  theme_bw()
+```
+
+No, a straight-line mean function does not seem to be the most plausible summary for this graph. The scatter plot clearly shows a non-linear relationship between female life expectancy and per capita gross domestic product (ppgdp). At lower levels of ppgdp, there's a steep increase in life expectancy as ppgdp rises. However, as ppgdp continues to increase, the rate of increase in life expectancy slows down, suggesting a curve rather than a straight line. The data points tend to flatten out at higher levels of ppgdp. There is a dense cluster of points at lower ppgdp values, showing a wide range of life expectancies within that economic bracket. A single straight line would struggle to capture this variability effectively. The relationship suggests diminishing returns. Initial increases in wealth (ppgdp) have a large impact on extending life expectancy, but further increases in wealth have a progressively smaller impact. A straight line cannot represent this kind of diminishing effect. While a straight line might show a general positive trend, it would oversimplify the relationship and fail to capture the important non-linear characteristics present in the data. A curved model would be more appropriate to summarize the relationship between female life expectancy and ppgdp as depicted in this scatter plot.
+
+###### (c) Scatterplot of log of female life expectancy (lifeExpF) versus log of Per capita gross domestic product in US dollars (ppgdp)
+
+```{r}
+ggplot(UN11, aes(x = log(ppgdp),
+                y = log(lifeExpF))) +
+  geom_point() +
+    geom_smooth(method = 'lm') +
+  labs(x = "Female life expectancy in years",
+       y = "Per capita gross domestic product in US dollars",
+       title = "Relationship between lifeExpF and ppgdp") +
+  theme_bw()
+```
+
+Yes, based on the visual inspection of this graph, a simple linear regression model seems reasonably plausible as a summary. This scatter plot shows a generally upward and relatively straight pattern in the relationship between female life expectancy (on the x-axis) and the logarithm of per capita gross domestic product (on the y-axis). As female life expectancy increases, the log of ppgdp also tends to increase in a roughly linear fashion. While there is some scatter around the blue regression line, the spread of the points appears somewhat consistent across the range of female life expectancy. This suggests that the variance of the error term might be relatively constant, a key assumption for simple linear regression. Unlike the previous graph, there isn't a strong visual indication of a pronounced curve in the relationship. The points don't seem to systematically deviate from a straight line. The fact to be noted is we used logarithmic values of both dependent and independent variables. While the relationship appears linear on this transformed scale, the relationship between original ppgdp and life expectancy is not fully linear. Also, there is still some noticeable scatter around the regression line, indicating that female life expectancy doesn't perfectly predict the log of ppgdp. Other factors are likely at play. These all points suggests that further statistical analysis is necessary for a more rigorous assessment.
+
+
+### Question 2
+
+###### (a) How, if at all, does the slope of the prediction equation change?
+The slope does change. When the explanatory variable (distance) is converted from miles to kilometers, it undergoes a linear transformation—specifically, multiplication by a constant (1.6). In regression analysis, multiplying a predictor by a constant divides the slope by that same constant. This is because the slope represents the change in the response variable for a one-unit increase in the predictor, and changing the unit of measurement alters the scale of that increase. Therefore, the slope is divided by 1.6 to maintain the same relationship between the variables.
+
+###### (b) How, if at all, does the correlation change?
+The correlation does not change. Correlation is a standardized, unitless measure of the strength and direction of the linear relationship between two variables. Since it is unaffected by linear transformations such as multiplying a variable by a constant, changing the units of the explanatory variable from miles to kilometers does not affect the correlation coefficient. Thus, the underlying association between the variables remains the same.
+
+
+### Question 3 
+
+```{r}
+data(water)
+head(water)
+```
+
+```{r}
+summary(water)
+```
+
+
+```{r}
+pairs(water,
+      main = "Scatterplot Matrix of Precipitation and Runoff",
+      pch = 21, bg = "lightblue")
+```
+
+###### Interpretation of the Scatterplot Matrix
+Examining the first row (Year on y-axis) and first column (Year on x-axis), the scatterplots show no strong linear trend between the year and the precipitation measurements at any of the six sites. The points appear randomly scattered, suggesting that over the observed period, there isn't a consistent increase or decrease in precipitation at these locations. There are fluctuations from year to year, but no clear long-term trend. Similarly, the scatterplot between "Year" and "BSAAM" shows no strong linear trend. The runoff volume fluctuates from year to year, but there's no clear indication of a consistent increase or decrease in runoff at the Bishop site over this time period. Moreover, there appears to be moderate to strong positive linear relationships among many of the precipitation variables (APMAM, APSAB, APSLAKE, OPBPC, OPRC, OPSLAKE). For instance, the scatterplots between APMAM and APSAB, APMAM and APSLAKE, APSAB and APSLAKE, OPBC and OPRC, OPBC and OPSLAKE, OPRC and OPSLAKE show a general upward trend, suggesting that when precipitation is high at one site, it tends to be higher at these other sites as well. The points are somewhat clustered around an imaginary line, indicating a noticeable positive correlation. However, the relationships aren't perfectly linear, and there's some scatter for instance APSLAKE and OPRC, APSLAKE and OPBPC, indicating that precipitation at these sites doesn't always move in perfect trend.Furthermore, all the scatterplots between the precipitation variables and BSAAM show a positive trend with some being roughly positive. This is crucial and expected because higher precipitation at any of these sites generally corresponds to higher stream runoff. The relationship between OPRC and BSAAM and OPSLAKE and BSAAM seems to show a moderately strong positive linear relationship. The points appear somewhat clustered along an upward trend. The relationships between APMAM and BSAAM, APSAB and BSAAM, APSLAKE and BSAAM, and OPBC and BSAAM also show a positive trend, but the scatter of the points appears a bit wider, suggesting a weaker to moderate positive linear relationship compared to OPRC and OPSLAKE. This indicates that these precipitation sites might be slightly less directly correlated with the runoff at the Bishop site, or that other factors have a more significant influence on this relationship.
+
+###### Summary for Predicting Water Supply:
+
+1. Precipitation as a Predictor: The positive relationships between precipitation at the Sierra Nevada sites and stream runoff (BSAAM) suggest that past precipitation data can be used to predict future runoff, which is a key factor in Southern California's water supply.<br>
+2. Variable Importance: Precipitation measurements from sites like OPRC and OPSLAKE might be slightly better individual predictors of BSAAM compared to the other sites, based on the visual strength of their correlation. <br>
+3. Multicollinearity: The strong correlations among the precipitation variables themselves indicate that if you were to build a multiple regression model, you would need to be mindful of multicollinearity. Including all these highly correlated predictors might not be the most efficient or stable approach. Variable selection techniques might be necessary.<br>
+4. Other Factors: The scatter in the relationships between precipitation and runoff indicates that precipitation is not the only factor influencing runoff. Other variables (like temperature, snowpack accumulation and melt rates, soil moisture, etc.) likely play a significant role and could improve the accuracy of predictions if included in a more comprehensive model.<br>
+5. No Clear Long-Term Trend: Based on this initial visual analysis, there isn't a strong long-term trend in either precipitation or runoff over the observed period. This suggests that predictions might need to focus on the relationships between the variables rather than extrapolating a simple trend over time.
+
+
+```{r}
+# png("scatterplot_matrix_prec_runoff.png", width = 1600, height = 1600, res = 200)
+# pairs(water,
+#      main = "Scatterplot Matrix of Precipitation and Runoff",
+#      pch = 21,
+#      bg = "lightblue")
+# dev.off()
+```
+
+
+### Question 4
+
+```{r}
+data(Rateprof)
+head(Rateprof)
+```
+
+```{r}
+pairs(Rateprof[c("quality", "helpfulness", "clarity", "easiness", "raterInterest")],
+      main = "Scatterplot Matrix of Professor Ratings",
+      pch = 21,
+      bg = "lightblue")
+```
+
+```{r}
+# png("scatterplot_matrix_prof_ratings.png", width = 1600, height = 1600, res = 200)
+# pairs(Rateprof[c("quality", "helpfulness", "clarity", "easiness", "raterInterest")],
+#      main = "Scatterplot Matrix of Professor Ratings",
+#      pch = 21,
+#      bg = "lightblue")
+# dev.off()
+```
+
+###### Interpretation of the Scatterplot Matrix
+
+There are strong positive linear relationships among quality, helpfulness, and clarity. The points in these scatterplots are tightly clustered around an upward-sloping line. This suggests that instructors rated highly on one of these dimensions tend to be rated highly on the others as well. For example, professors considered high quality are also very likely to be seen as helpful and clear. Here quality, helpfulness, and clarity are strongly and positively correlated with each other. Students tend to rate instructors similarly across these three dimensions. Moreover, there appears to be a positive relationship or perhaps a more complex, non-linear relationship of easiness with quality, helpfulness and clarity. While there are instructors rated as all high quality, easiness, helpful and clarity, ohers as low quality, easiness, clarity and clarity. Also, tthere's a slight tendency for higher easiness ratings to be associated with somewhat lower quality (similarly for helpfulness and clarity), ratings (more challenging courses) and vice-versa However, this relationship is not very strong. Similarly, there is slightly strong linear relationship between raterInterest and quality, helpfulness, clarity, easiness (with easiness being lowest strong). Students more interested in the subject matter might be slightly more likely to give higher quality ratings to the instructor. However, this relationship is not very strong. Students interested in the subject might perceive the instructor as slightly more helpful and students interested in the material might find the instructor's explanations slightly clearer, or vice versa. Moreover, there is a very weak or no clear linear relationship between the easiness of the course and the rater's interest in the subject matter which is interesting.<br>
+Ton summaries, students' perceptions of an instructor's quality, helpfulness, and clarity are closely intertwined. "easiness" appears to be a somewhat distinct dimension of instructor evaluation, not strongly tied to the other positive attributes. Also, student's pre-existing interest in the subject matter might have a small positive influence on their perception of the instructor's quality, helpfulness, and clarity.
+
+
+### Question 5
+
+```{r}
+data("student.survey")
+head(student.survey)
+```
+
+###### (i) y = political ideology and x = religiosit
+
+```{r}
+contingency_table <- table(student.survey$pi, student.survey$re)
+print(contingency_table)
+```
+
+```{r}
+chi2_test <- chisq.test(contingency_table)
+print(chi2_test)
+```
+
+Here, the p-value (0.001008) is less than the conventional significance level of 0.05. This indicates that the observed association between political ideology and religiosity in the sample is statistically significant. The null hypothesis for the Chi-squared test of independence is that there is no association between the two variables in the population. Since the p-value is small, we reject the null hypothesis. Based on this analysis, there is evidence to suggest that political ideology and religiosity are associated with each other in the population from which this student survey was drawn. In other words, a student's political ideology appears to be related to how often they attend religious services.
+
+
+```{r}
+ggplot(student.survey, aes(x = re, fill = pi)) +
+  geom_bar(position = "dodge") +
+  labs(
+    x = "Religiosity",
+    y = "Count",
+    fill = "Political Ideology",
+    title = "Political Ideology by Religiosity") +
+  scale_fill_brewer(palette = "Set3") +
+  theme_bw()
+```
+
+```{r}
+library(nnet)
+model_pi_re <- multinom(pi ~ re, data = student.survey)
+summary(model_pi_re)
+```
+
+The multinomial logistic regression model suggests a statistically significant relationship between religiosity and political ideology. The coefficients indicate how changes in religiosity are associated with the likelihood of identifying with different political ideologies, relative to the baseline "conservative" group. For example, the positive and relatively large coefficient for re.L in the "liberal" row (13.11318) suggests a strong positive linear trend: as religiosity decreases (moving from "every week" towards "never"), the log-odds of being "liberal" compared to "conservative" significantly increase. Similarly, the large negative coefficient for re.L in the "very conservative" row (-9.585370) suggests a strong negative linear trend: as religiosity decreases, the log-odds of being "very conservative" compared to "conservative" significantly decrease. The multinomial logistic regression analysis provides evidence that religiosity is a significant predictor of political ideology in this student survey data. The coefficients reveal the direction and magnitude of the relationship between different levels of religiosity and the likelihood of identifying with various political ideologies, relative to the "conservative" baseline. Lower levels of religiosity appear to be associated with a higher likelihood of identifying as more liberal, while higher levels of religiosity are associated with a higher likelihood of identifying as more conservative (compared to other ideologies). The non-linear terms (re.Q, re.C) indicate more complex aspects of this relationship beyond a simple linear trend.
+
+```{r}
+model_lm_categorical <- lm(as.numeric(pi) ~ factor(re), data = student.survey)
+summary(model_lm_categorical)
+```
+
+The highly significant F-statistic indicates that religiosity, when treated as a categorical factor, has a statistically significant effect on the numerical representation of political ideology. This means that the mean political ideology scores differ significantly across the different levels of religiosity. The highly significant positive coefficient for factor(re)L suggests a strong linear trend in numerical political ideology score across the levels of religiosity. Assuming an order from more religious to less religious for re and a numerical coding for pi where higher values represent a certain political direction (e.g., more conservative), this indicates a significant tendency for political ideology to shift in one direction as religiosity decreases. The quadratic and cubic contrasts (factor(re)Q and factor(re)C) are not statistically significant at the conventional 0.05 level, suggesting that the relationship between religiosity and numerical political ideology is primarily linear. The R-squared of around 0.39 indicates that religiosity explains a moderate portion of the variation in the numerical political ideology scores. Other factors not included in this model also contribute to differences in political ideology.
+
+
+###### (ii) y = high school GPA and x = hours of TV watching
+
+```{r}
+ggplot(data = student.survey, aes(x = tv, y = hi)) +
+  geom_point() +
+  geom_smooth(method = 'lm') +
+  labs(x = "Hours of TV Watching",
+       y = "High School GPA",
+       title = "Relationship between High School GPA and Hours of TV Watching") +
+  theme_bw()
+```
+
+The scatter plot shows individual data points representing students, with their hours of TV watching on the x-axis and their High School GPA on the y-axis. A blue line represents the fitted linear regression model, illustrating the estimated trend in GPA as TV watching hours change. The shaded gray area around the blue line represents the confidence interval for the regression line, indicating the uncertainty in the estimated relationship. Visually, there appears to be a slight negative trend, suggesting that as hours of TV watching increase, GPA tends to decrease. However, the scatter of points indicates that this relationship might not be very strong.
+
+```{r}
+model2 <- lm(hi ~ tv, data = student.survey)
+summary(model2)
+```
+
+The analysis reveals a statistically significant negative linear relationship between hours of TV watching and High School GPA. This means that, on average, for each additional hour of TV watched per week, a student's High School GPA is estimated to decrease by approximately 0.018 points. However, the R-squared value of 0.0716 indicates that only about 7.16% of the variation in High School GPA can be explained by the number of hours of TV watching. This suggests that other factors not included in this simple model likely play a much larger role in determining a student's GPA. While the relationship is statistically significant, the practical significance might be limited due to the small effect size (a decrease of only 0.018 GPA points per hour of TV) and the low amount of variance explained. The inferential analysis suggests that there is a statistically significant, albeit weak, negative linear relationship between hours of TV watching and High School GPA in this student survey data. While we can conclude that more TV watching is associated with slightly lower GPAs on average, Hours of TV Watching is not a strong predictor of High School GPA, and other factors are likely more influential.

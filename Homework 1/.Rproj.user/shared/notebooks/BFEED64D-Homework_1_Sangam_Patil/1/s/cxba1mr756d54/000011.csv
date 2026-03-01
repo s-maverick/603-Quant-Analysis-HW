@@ -1,0 +1,3 @@
+"0","ggplot(df, aes(x = LungCap)) +"
+"0","  geom_boxplot() +"
+"0","  facet_grid(Gender ~ AgeCat)"

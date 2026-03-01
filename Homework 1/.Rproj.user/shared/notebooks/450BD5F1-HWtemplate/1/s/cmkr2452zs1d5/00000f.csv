@@ -1,0 +1,7 @@
+"0","data$Probability <- data$Frequency / sum(data$Frequency)"
+"0","expected_value <- sum(data$X * data$Probability)"
+"0","print(paste('Expected value for number of prior convictions : ', expected_value))"
+"1","[1]"
+"1"," ""Expected value for number of prior convictions :  1.47826086956522"""
+"1","
+"

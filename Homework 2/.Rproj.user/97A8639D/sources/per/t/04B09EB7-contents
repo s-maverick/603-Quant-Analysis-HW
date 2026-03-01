@@ -1,0 +1,222 @@
+---
+title: "Homework 2"
+author: "Sangam Patil"
+date: "20 March 2025"
+format: html
+editor: visual
+---
+
+## Question 1: Confidence Interval for Surgery Wait Times
+
+```{r}
+# Given data
+n_knee <- 610
+mean_knee <- 25
+sd_knee <- 12
+
+n_hip <- 780
+mean_hip <- 22
+sd_hip <- 11
+
+# Confidence Level
+alpha <- 0.10
+z_score <- qnorm(1 - alpha/2)
+
+# Confidence Interval for Knee Replacement
+margin_error_knee <- z_score * (sd_knee / sqrt(n_knee))
+ci_knee <- c(mean_knee - margin_error_knee, mean_knee + margin_error_knee)
+
+# Confidence Interval for Hip Replacement
+margin_error_hip <- z_score * (sd_hip / sqrt(n_hip))
+ci_hip <- c(mean_hip - margin_error_hip, mean_hip + margin_error_hip)
+
+list(Knee_CI = ci_knee, Hip_CI = ci_hip)
+```
+
+The confidence interval for surgery wait times provides a range in which we expect the true mean wait time to lie with a  90% confidence level.
+1. Knee Replacement: The 90% confidence interval for the average wait time for knee replacement surgery is 24.20 to 25.80 weeks. This means that we are 90% confident that the true mean wait time falls within this range.
+2. Hip Replacement: The 90% confidence interval for the average wait time for hip replacement surgery is 21.35 to 22.65 weeks. This suggests that the true mean wait time for hip replacement surgery is likely to be within this range with 90% confidence.
+These intervals indicate that, on average, knee replacement surgeries tend to have a slightly longer wait time than hip replacement surgeries.
+
+
+## Question 2: Proportion Confidence Interval for Universal Healthcare
+
+```{r}
+n <- 1200
+p_hat <- 680 / 1200
+alpha <- 0.05
+z_score <- qnorm(1 - alpha/2)
+
+# Standard error
+se <- sqrt((p_hat * (1 - p_hat)) / n)
+
+# Confidence Interval
+ci_prop <- c(p_hat - z_score * se, p_hat + z_score * se)
+ci_prop
+```
+
+The confidence interval for the proportion of individuals in favor of universal healthcare provides an estimated range within which the true proportion is expected to fall with 95% confidence. This means we are 95% confident that the true proportion of the population in favor of universal healthcare falls between 53.86% and 59.47%. If repeated samples were taken, approximately 95% of them would contain the true population proportion within this range.
+
+
+## Question 3: Sample Size for Cost of Living Estimate
+
+```{r}
+# Given data
+range <- 2000 - 500
+sigma <- range / 3
+margin_error <- 10
+alpha <- 0.05
+z_score <- qnorm(1 - alpha/2)
+
+# Sample size calculation
+n_sample <- (z_score * sigma / margin_error) ^ 2
+ceiling(n_sample)
+```
+
+To estimate the cost of living with a 95% confidence level and a margin of error of 10 units, the required sample size is calculated to be 9,604 observations. To achieve a precise and reliable cost of living estimate, at least 9,604 samples are necessary to ensure that the estimate falls within the specified margin of error with 95% confidence.
+
+
+## Question 4: Hypothesis Testing for Female Manager Salaries
+
+```{r}
+# Given data
+mu_0 <- 1200
+y_bar <- 1050
+s <- 150
+n <- 16
+alpha <- 0.05
+
+# T-test
+t_stat <- (y_bar - mu_0) / (s / sqrt(n))
+p_value <- 2 * pt(t_stat, df = n - 1)
+
+list(t_stat = t_stat, p_value = p_value)
+```
+
+In this hypothesis test, we are evaluating whether the average salary of female managers is significantly different from the assumed population mean salary of `$1200`. The given sample consists of 16 female managers with a sample mean salary of `$1050` and a standard deviation of `$150`.
+1. Null Hypothesis (H_0): The average salary of female managers is $`1200 (\mu = 1200)`.
+2. Alternative Hypothesis (H_A): The average salary of female managers is not `$1200 (\mu \neq 1200)`.
+Since the p-value (0.00116) is less than the significance level `(\alpha = 0.05)`, we reject the null hypothesis. This indicates that the average salary of female managers is significantly different from $1200. Given the negative t-value, it suggests that female managers earn significantly less than the assumed population mean salary of $1200.
+
+
+## Question 5: Two-Tailed Hypothesis Testing
+
+```{r}
+# Given data
+y_lee <- 619.8
+se_lee <- 10.0
+y_taylor <- 619.5
+se_taylor <- 10.0
+mu_0 <- 600
+
+# Calculate t-values
+t_lee <- (y_lee - mu_0) / se_lee
+t_taylor <- (y_taylor - mu_0) / se_taylor
+
+# Calculate p-values
+p_lee <- 2 * (1 - pt(t_lee, df = 999))
+p_taylor <- 2 * (1 - pt(t_taylor, df = 999))
+
+list(Lee = c(t = t_lee, p = p_lee), Taylor = c(t = t_taylor, p = p_taylor))
+```
+
+In this hypothesis test, we are examining whether the means of Lee’s and Taylor’s values are significantly different from a hypothesized population mean of 600.
+
+Step 1: Define Hypotheses
+	•	Null Hypothesis (H_0): The true mean `(\mu) is 600 (\mu = 600)`.
+	•	Alternative Hypothesis (H_A): The true mean is not 600 `(\mu \neq 600)`.
+
+Step 2: Compute Test Statistics
+
+Using the given means and standard errors:
+	•	Lee’s t-value = 1.98
+	•	Taylor’s t-value = 1.95
+
+Step 3: Compute p-values
+	•	Lee’s p-value = 0.04798
+	•	Taylor’s p-value = 0.05146
+
+Step 4: Conclusion
+
+At a 5% significance level `(\alpha = 0.05)`:
+	•	For Lee: The p-value (0.04798) is slightly less than 0.05, so we reject the null hypothesis, suggesting that Lee’s value is significantly different from 600.
+	•	For Taylor: The p-value (0.05146) is slightly greater than 0.05, so we fail to reject the null hypothesis, meaning there is not enough evidence to conclude that Taylor’s value is significantly different from 600.
+
+Thus, while Lee’s result suggests a significant difference from 600, Taylor’s result is marginally above the threshold, indicating a weaker statistical significance.
+
+
+## Question 6: Chi-Square Test for Vegetarian Meal Selection
+
+```{r}
+# Given data
+observed <- matrix(c(45, 50, 55, 75, 65, 30), nrow = 2, byrow = TRUE)
+colnames(observed) <- c("3rd Grade", "4th Grade", "5th Grade")
+rownames(observed) <- c("Vegetarian", "Non-Vegetarian")
+
+# Chi-square test
+chi_test <- chisq.test(observed)
+chi_test
+```
+
+In this hypothesis test, we analyze whether there is a significant association between grade level (3rd, 4th, and 5th grade) and meal preference (Vegetarian vs. Non-Vegetarian).
+
+Step 1: Define Hypotheses
+	•	Null Hypothesis (H_0): There is no association between grade level and meal preference (they are independent).
+	•	Alternative Hypothesis (H_A): There is an association between grade level and meal preference (they are dependent).
+
+Step 2: Perform the Chi-Square Test
+
+A Pearson’s Chi-Square test was conducted using the observed frequencies of students selecting vegetarian and non-vegetarian meals across three grade levels.
+
+Step 3: Test Results
+	•	Chi-Square Statistic `(\chi^2)` = 15.62
+	•	Degrees of Freedom (df) = 2
+	•	p-value = 0.0004056
+
+Step 4: Conclusion
+
+Since the p-value (0.0004056) is much smaller than the significance level of 0.05, we reject the null hypothesis. This indicates that there is a significant association between grade level and meal preference. In other words, students’ meal choices vary significantly based on their grade level rather than being evenly distributed.
+
+
+## Question 7: ANOVA Test for Physical Activity Differences
+
+```{r}
+# Given data
+school_A <- c(5.0, 6.2, 5.5, 5.8, 6.0, 6.4)
+school_B <- c(7.0, 7.5, 7.8, 7.6, 8.0, 7.2)
+school_C <- c(4.0, 4.5, 4.8, 5.0, 4.2, 4.6)
+
+# ANOVA test
+activity_data <- data.frame(
+  Activity = c(school_A, school_B, school_C),
+  School = rep(c("A", "B", "C"), each = 6)
+)
+
+anova_result <- aov(Activity ~ School, data = activity_data)
+summary(anova_result)
+```
+
+Step 1: Define Hypotheses
+	•	Null Hypothesis (H_0): There is no significant difference in physical activity levels among students from School A, School B, and School C.
+	•	Alternative Hypothesis (H_A): There is a significant difference in physical activity levels among the three schools.
+
+Step 2: Perform ANOVA Test
+
+A one-way ANOVA test was conducted to compare the average physical activity levels among students from three different schools (A, B, and C).
+
+Step 3: Test Results
+	•	Degrees of Freedom (Df):
+	•	Between groups (School) = 2
+	•	Within groups (Residuals) = 15
+	•	Sum of Squares (Sum Sq):
+	•	Between groups = 27.160
+	•	Within groups = 2.665
+	•	Mean Squares (Mean Sq):
+	•	Between groups = 13.580
+	•	Within groups = 0.178
+	•	F-statistic (F value) = 76.44
+	•	p-value = 1.36e-08 (very close to 0)
+
+Step 4: Conclusion
+
+Since the p-value (1.36e-08) is much smaller than the significance level of 0.05, we reject the null hypothesis. This means that there is a statistically significant difference in physical activity levels among the three schools. Further post-hoc tests could be conducted to determine which specific schools have significantly different activity levels.

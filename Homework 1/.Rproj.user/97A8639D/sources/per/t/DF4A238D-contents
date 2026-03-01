@@ -1,0 +1,211 @@
+---
+title: "DACSS-603_Spring25:Homework 1"
+author: "Sangam Patil"
+format: 
+  html: 
+    embed-resources: true
+    self-contained-math: true
+---
+
+# Importing Libraries
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+
+## Question 1 : Use the LungCapData to answer the following questions. (Hint: Using dplyr, especially group_by() and summarize() can help you answer the following questions relatively efficiently.)
+
+First, let's download the LungCap.csv file and save it to your Quarto 
+project folder. Read in the data file. 
+
+```{r, echo=T}
+df <- read.csv("LungCapData.csv")
+```
+
+## 3 Question 1 - a : What does the distribution of LungCap look like? (Hint: Plot a histogram with probability density on the y axis)
+
+The distribution of LungCap looks as follows:
+
+```{r, echo=T}
+hist(df$LungCap)
+```
+
+The histogram suggests that the distribution is close to a normal 
+distribution. Most of the observations are close to the mean. Very 
+few observations are close to the margins (0 and 15).
+
+## Question 1 - b : Compare the probability distribution of the LungCap with respect to Males and Females? (Hint: make boxplots separated by gender using the boxplot() function)
+
+```{r}
+ggplot(df, aes(x = LungCap)) +
+  geom_histogram() +
+  facet_wrap(~ Gender, nrow = 1)
+```
+
+```{r}
+ggplot(df, aes(x = LungCap)) +
+  geom_boxplot() +
+  facet_wrap(~ Gender, nrow = 1)
+```
+
+Both the histogram and bar plot suggests that, the distribution of 
+'LungCap' for 'female' is close to normal distribution with more 
+observations close to mean and fewer observations far from mean.
+While the graphs of 'LungCap' for 'male' suggests that, distribution
+of the observations is more close to left skewed or negative skewed. 
+
+## Question 1 -c : Compare the mean lung capacities for smokers and non-smokers. Does it make sense?
+
+```{r}
+t_test_result <- t.test(LungCap ~ Smoke, data = df)
+t_test_result
+```
+
+For my perspective, the data doesn't make any sense. The fact that 
+smoking damages the operation and the capacity of lungs, doesn't 
+seems to be valid for this data. In fact, this data proves that 
+not smoking is dangerous to lungs(which is totally wrong). We 
+should also consider that, the capacity of lungs is a natural 
+thing and varies from person to person. There is a chance that 
+even if a person does smoking still their lungs are not much 
+affected by it. And, unluckily the randomize of the sampling 
+have chosen those samples.
+
+## Question 1 - d : Examine the relationship between Smoking and Lung Capacity within age groups: “less than or equal to 13”, “14 to 15”, “16 to 17”, and “greater than or equal to 18”.
+
+```{r}
+df = mutate(df, AgeCat = case_when(
+  Age <= 13 ~ '<= 13',
+  Age == 14 ~ '14 to 15',
+  Age == 15 ~ '14 to 15',
+  Age == 16 ~ '16 to 17',
+  Age == 17 ~ '16 to 17',
+  Age >= 18 ~ '>= 18'
+))
+```
+
+```{r}
+ggplot(df, aes(x = LungCap)) +
+  geom_boxplot() +
+  facet_grid(AgeCat ~ Gender)
+```
+
+```{r}
+ggplot(df, aes(x = LungCap)) +
+  geom_histogram() +
+  facet_grid(AgeCat ~ Gender)
+```
+
+For both males and females, the age group '<= 13' shows the widest 
+distribution of lung capacity, suggesting greater variability in this 
+group.  The age groups '14-15', '16-17', and '>= 18', reveal a trend of 
+decreasing lung capacity counts, particularly for females.  
+Males, however, maintain a more consistent distribution across 
+these older age groups, though with a slight decrease in the 
+'>= 18' group. Overall, the histograms suggest that lung capacity 
+distribution is influenced by both age and gender, with younger 
+individuals showing more variation and males demonstrating a more 
+stable distribution across older age categories compared to females.
+
+## Question 1 - e : Compare the lung capacities for smokers and non-smokers within each age group. Is your answer different from the one in part c. What could possibly be going on here?
+
+```{r}
+t_test_result <- t.test(LungCap ~ Smoke, 
+                        data = filter(df, 
+                                      AgeCat == '<= 13'))
+t_test_result
+```
+
+No, my answer for this age group is same as that in part c.
+
+```{r}
+t_test_result <- t.test(LungCap ~ Smoke, 
+                        data = filter(df, 
+                                      AgeCat == '14 to 15'))
+t_test_result
+```
+
+No, my answer for this age group is same as that in part c.
+
+```{r}
+t_test_result <- t.test(LungCap ~ Smoke, 
+                        data = filter(df, 
+                                      AgeCat == '16 to 17'))
+t_test_result
+```
+
+No, my answer for this age group is same as that in part c.
+
+```{r}
+t_test_result <- t.test(LungCap ~ Smoke, 
+                        data = filter(df, 
+                                      AgeCat == '>= 18'))
+t_test_result
+```
+
+No, my answer for this age group is same as that in part c.
+
+I think it's more possible that unluckily the randomize of the sampling 
+have chosen wrong (not quantitatively or technically but qualitatively 
+or we can say False-True) samples. Because there is a chance that 
+even if a person does smoking still their lungs are not much 
+affected by it and vice-versa. 
+
+
+## Question 2 : Let X = number of prior convictions for prisoners at a state prison at which there are 920 prisoners.
+
+```{r}
+data = data_frame(
+  X = c(0,1,2,3,4),
+  Frequency = c(150, 420, 180, 100, 70)
+)
+data
+```
+
+## Question 2 - a : What is the probability that a randomly selected inmate has exactly 2 prior convictions?
+
+```{r}
+prob = data$Frequency[data$X == 2] / sum(data$Frequency)
+print(paste('Probability of having exactly 2 orior convictions : ',prob))
+```
+
+## Question 2 - b : What is the probability that a randomly selected inmate has fewer than 2 prior convictions?
+
+```{r}
+prob = sum(data$Frequency[data$X < 2]) / sum(data$Frequency)
+print(paste('Probability of having fewer than 2 prior convictions : ',prob))
+```
+
+## Question 2 - c : What is the probability that a randomly selected inmate has 2 or fewer prior convictions?
+
+```{r}
+prob = sum(data$Frequency[data$X <= 2]) / sum(data$Frequency)
+print(paste('Probability of having 2 or fewer convictions : ',prob))
+```
+
+## Question 2 - d : What is the probability that a randomly selected inmate has more than 2 prior convictions?
+
+```{r}
+prob = sum(data$Frequency[data$X > 2]) / sum(data$Frequency)
+print(paste('Probability of having more than 2 prior convictions : ',prob))
+```
+
+## Question 2 - e : What is the expected value for the number of prior convictions?
+
+```{r}
+data$Probability <- data$Frequency / sum(data$Frequency)
+expected_value <- sum(data$X * data$Probability)
+print(paste('Expected value for number of prior convictions : ', expected_value))
+```
+
+## Question 2 - f : Calculate the variance and the standard deviation for the Prior Convictions.
+
+```{r}
+variance <- sum((data$X - expected_value)^2 * data$Probability)
+standard_deviation <- sqrt(variance)
+print(paste("Variance of prior convictions : ", variance))
+print(paste("Standard Deviation of prior convictions : ", standard_deviation))
+```
+

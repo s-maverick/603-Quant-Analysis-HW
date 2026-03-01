@@ -1,0 +1,1 @@
+"0","salary$new_dean <- ifelse(salary$ysdeg <= 15, 1, 0)"

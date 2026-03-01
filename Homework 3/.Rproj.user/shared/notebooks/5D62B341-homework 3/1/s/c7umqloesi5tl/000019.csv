@@ -1,0 +1,4 @@
+"0","pairs(Rateprof[c(""quality"", ""helpfulness"", ""clarity"", ""easiness"", ""raterInterest"")],"
+"0","      main = ""Scatterplot Matrix of Professor Ratings"","
+"0","      pch = 21,"
+"0","      bg = ""lightblue"")"

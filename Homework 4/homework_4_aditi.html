@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aditi Pabal">
+<meta name="dcterms.date" content="2025-04-18">
+
+<title>Homework 4</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="homework_4_aditi_files/libs/clipboard/clipboard.min.js"></script>
+<script src="homework_4_aditi_files/libs/quarto-html/quarto.js"></script>
+<script src="homework_4_aditi_files/libs/quarto-html/popper.min.js"></script>
+<script src="homework_4_aditi_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="homework_4_aditi_files/libs/quarto-html/anchor.min.js"></script>
+<link href="homework_4_aditi_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="homework_4_aditi_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="homework_4_aditi_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="homework_4_aditi_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="homework_4_aditi_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Homework 4</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Aditi Pabal </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 18, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">'alr4'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: car</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: effects</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>lattice theme set by effectsTheme()
+See ?effectsTheme for details.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">'smss'</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">'tidyverse'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+✖ dplyr::recode() masks car::recode()
+✖ purrr::some()   masks car::some()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<section id="question-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-1">Question 1</h3>
+<section id="a" class="level6">
+<h6 class="anchored" data-anchor-id="a">A</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>house_price_model <span class="ot">&lt;-</span> <span class="cf">function</span>(x1, x2, actual_price) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  predicted_price <span class="ot">&lt;-</span> (<span class="sc">-</span><span class="dv">15000</span> <span class="sc">+</span> <span class="dv">25000</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">15000</span> <span class="sc">*</span> x2)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  residual <span class="ot">&lt;-</span> actual_price <span class="sc">-</span> predicted_price</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(predicted_price, residual))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">house_price_model</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">160000</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"For a home with 3 bedrooms and 2 bathrooms sold for $160,000:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "For a home with 3 bedrooms and 2 bathrooms sold for $160,000:"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Predicted Value: "</span>, A[<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Predicted Value:  90000"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Residual Value: "</span>, A[<span class="dv">2</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Residual Value:  70000"</code></pre>
+</div>
+</div>
+<p>The model undervalued the home by $70,000, indicating that the actual selling price was much higher than what the model predicted using just the number of bedrooms and bathrooms.</p>
+</section>
+<section id="b" class="level6">
+<h6 class="anchored" data-anchor-id="b">B</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">house_price_model</span>(i, <span class="dv">2</span>, <span class="dv">0</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Predicted Price for"</span>, i, <span class="st">"bedrooms and 2 bathrooms : "</span>, p[<span class="dv">1</span>]))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Predicted Price for 1 bedrooms and 2 bathrooms :  40000"
+[1] "Predicted Price for 2 bedrooms and 2 bathrooms :  65000"
+[1] "Predicted Price for 3 bedrooms and 2 bathrooms :  90000"
+[1] "Predicted Price for 4 bedrooms and 2 bathrooms :  115000"
+[1] "Predicted Price for 5 bedrooms and 2 bathrooms :  140000"
+[1] "Predicted Price for 6 bedrooms and 2 bathrooms :  165000"
+[1] "Predicted Price for 7 bedrooms and 2 bathrooms :  190000"
+[1] "Predicted Price for 8 bedrooms and 2 bathrooms :  215000"
+[1] "Predicted Price for 9 bedrooms and 2 bathrooms :  240000"
+[1] "Predicted Price for 10 bedrooms and 2 bathrooms :  265000"</code></pre>
+</div>
+</div>
+<p>Interpretation: 1. For each extra bedroom (with the number of bathrooms fixed at 2), the predicted selling price rises by approximately $25,000. 2. This indicates a linear connection between the number of bedrooms and the selling price, assuming the number of bathrooms remains constant.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq</span>(<span class="fl">0.5</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)){</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">house_price_model</span>(<span class="dv">3</span>, i, <span class="dv">0</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Predicted Price for 3 bedrooms and"</span>, i, <span class="st">"bathrooms : "</span>, p[<span class="dv">1</span>]))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Predicted Price for 3 bedrooms and 0.5 bathrooms :  67500"
+[1] "Predicted Price for 3 bedrooms and 1 bathrooms :  75000"
+[1] "Predicted Price for 3 bedrooms and 1.5 bathrooms :  82500"
+[1] "Predicted Price for 3 bedrooms and 2 bathrooms :  90000"
+[1] "Predicted Price for 3 bedrooms and 2.5 bathrooms :  97500"
+[1] "Predicted Price for 3 bedrooms and 3 bathrooms :  105000"
+[1] "Predicted Price for 3 bedrooms and 3.5 bathrooms :  112500"
+[1] "Predicted Price for 3 bedrooms and 4 bathrooms :  120000"
+[1] "Predicted Price for 3 bedrooms and 4.5 bathrooms :  127500"
+[1] "Predicted Price for 3 bedrooms and 5 bathrooms :  135000"</code></pre>
+</div>
+</div>
+<p>Interpretation: 1. Each additional half bathroom raises the predicted price by $7,500. 2. Once again, we observe a steady, linear trend.</p>
+</section>
+<section id="c" class="level6">
+<h6 class="anchored" data-anchor-id="c">C</h6>
+<ol type="1">
+<li>Adding one bedroom raises the price by $25,000.</li>
+<li>Adding one half bathroom increases the price by $7,500.</li>
+</ol>
+<p>To match the impact of one bedroom, we calculate: 25,000 / 7,500 = 3.33.</p>
+<p>Therefore, to have the same effect on the selling price as adding one bedroom, you’d need to add about 3.33 half bathrooms, or equivalently 1.67 full bathrooms (since 2 half bathrooms = 1 full bathroom). This means around 1.67, or roughly 2, full bathrooms would be required to match the price increase of adding one bedroom, assuming a linear relationship and all other factors remain constant.</p>
+</section>
+</section>
+<section id="question-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-2">Question 2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"salary"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="a-1" class="level6">
+<h6 class="anchored" data-anchor-id="a-1">A</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="fu">filter</span>(salary, sex <span class="sc">==</span> <span class="st">"Male"</span>), <span class="at">Avg_Salary_Male =</span> <span class="fu">mean</span>(salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Avg_Salary_Male
+1        24696.79</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="fu">filter</span>(salary, sex <span class="sc">==</span> <span class="st">"Female"</span>), <span class="at">Avg_Salary_Female =</span> <span class="fu">mean</span>(salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Avg_Salary_Female
+1          21357.14</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> rank <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, salary)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ degree + rank + sex + year + ysdeg, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4045.2 -1094.7  -361.5   813.2  9193.1 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 15746.05     800.18  19.678  &lt; 2e-16 ***
+degreePhD    1388.61    1018.75   1.363    0.180    
+rankAssoc    5292.36    1145.40   4.621 3.22e-05 ***
+rankProf    11118.76    1351.77   8.225 1.62e-10 ***
+sexFemale    1166.37     925.57   1.260    0.214    
+year          476.31      94.91   5.018 8.65e-06 ***
+ysdeg        -124.57      77.49  -1.608    0.115    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2398 on 45 degrees of freedom
+Multiple R-squared:  0.855, Adjusted R-squared:  0.8357 
+F-statistic: 44.24 on 6 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>We are testing the following hypotheses: 1. Null hypothesis (H₀): The mean salary for men is equal to the mean salary for women. 2. Alternative hypothesis (H₁): The mean salary for men is not equal to the mean salary for women.</p>
+<p>This test examines whether the difference in mean salaries between men and women is statistically significant, without considering other variables. If the coefficient for sexFemale is significant (p-value &lt; 0.05), we would reject the null hypothesis, implying that sex is associated with salary. This would suggest that women earn, on average, $1166 more than men, after controlling for degree, rank, year, and years since degree.</p>
+<p>However, the p-value is 0.214, which is not statistically significant at the 0.05 level. Therefore, we fail to reject the null hypothesis, meaning there is no strong evidence to suggest that men and women have different salaries after accounting for other variables.</p>
+</section>
+<section id="b-1" class="level6">
+<h6 class="anchored" data-anchor-id="b-1">B</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> rank <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, salary)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 2.5 %      97.5 %
+(Intercept) 14134.4059 17357.68946
+degreePhD    -663.2482  3440.47485
+rankAssoc    2985.4107  7599.31080
+rankProf     8396.1546 13841.37340
+sexFemale    -697.8183  3030.56452
+year          285.1433   667.47476
+ysdeg        -280.6397    31.49105</code></pre>
+</div>
+</div>
+</section>
+<section id="c-1" class="level6">
+<h6 class="anchored" data-anchor-id="c-1">C</h6>
+<pre><code>1.  Intercept: 21,038.41</code></pre>
+<p>Statistical Significance: Highly significant (p &lt; 2e-16) Interpretation: This represents the starting salary for an Assistant Professor with a Master’s degree, male, with zero years in rank and no years since obtaining their degree. This value serves as the baseline from which all other salary influences are measured. 2. degreePhD: 1,388.61 Statistical Significance: Not significant (p = 0.180, 95% CI includes 0) Interpretation: On average, faculty members with a PhD earn $1,388 more than those with a Master’s degree, assuming all other factors are constant. However, since this result is not statistically significant, we cannot assert with confidence that this salary difference is meaningful. 3. rankAsst: -5,292.36 Statistical Significance: Significant (p &lt; 0.001) Interpretation: Assistant Professors earn approximately $5,292 less than Associate Professors (the reference group), assuming all other variables remain constant. This supports the expected salary increase that comes with rank advancement. 4. rankProf: 5,826.40 Statistical Significance: Significant (p &lt; 0.001) Interpretation: Full Professors earn about $5,826 more than Associate Professors (the reference group), with all other factors controlled. This reflects a substantial and significant salary bump linked to the promotion to Full Professor. 5. sexFemale: 1,166.37 Statistical Significance: Not significant (p = 0.214, CI includes 0) Interpretation: Female faculty earn about $1,166 more than male faculty, on average. However, this difference is not statistically significant, indicating there is no strong evidence of a salary gap by gender after adjusting for education, rank, and experience. 6. year (Years in Rank): 476.31 Statistical Significance: Significant (p &lt; 0.001) Interpretation: Each additional year in a given rank is associated with an average salary increase of $476. This suggests that experience in rank is positively correlated with salary growth. 7. ysdeg (Years Since Degree): -124.57 Statistical Significance: Not significant (p = 0.115) Interpretation: On average, each additional year since earning the highest degree is linked to a $124 decrease in salary, with other factors held constant. This could imply salary stagnation or a negative impact of seniority over time, though the result is not statistically significant.</p>
+</section>
+<section id="d" class="level6">
+<h6 class="anchored" data-anchor-id="d">D</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>salary<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="fu">relevel</span>(salary<span class="sc">$</span>rank, <span class="at">ref =</span> <span class="st">"Assoc"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> rank <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, salary)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ degree + rank + sex + year + ysdeg, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4045.2 -1094.7  -361.5   813.2  9193.1 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 21038.41    1109.12  18.969  &lt; 2e-16 ***
+degreePhD    1388.61    1018.75   1.363    0.180    
+rankAsst    -5292.36    1145.40  -4.621 3.22e-05 ***
+rankProf     5826.40    1012.93   5.752 7.28e-07 ***
+sexFemale    1166.37     925.57   1.260    0.214    
+year          476.31      94.91   5.018 8.65e-06 ***
+ysdeg        -124.57      77.49  -1.608    0.115    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2398 on 45 degrees of freedom
+Multiple R-squared:  0.855, Adjusted R-squared:  0.8357 
+F-statistic: 44.24 on 6 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>In this regression model, the variable “rank” compares Assistant and Full Professors to Associate Professors, which is the reference group. The coefficient for rankAsst is -5,292.36, indicating that, on average, Assistant Professors earn <code>$</code>5,292 less than Associate Professors. Meanwhile, the coefficient for rankProf is 5,826.40, showing that Full Professors earn about $5,826 more than Associate Professors, after accounting for other variables in the model. Both coefficients are statistically significant (p &lt; 0.001), highlighting that academic rank is a strong and significant predictor of salary, with higher ranks linked to higher earnings.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>salary<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="fu">relevel</span>(salary<span class="sc">$</span>rank, <span class="at">ref =</span> <span class="st">"Prof"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> rank <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, salary)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ degree + rank + sex + year + ysdeg, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4045.2 -1094.7  -361.5   813.2  9193.1 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  26864.81    1375.29  19.534  &lt; 2e-16 ***
+degreePhD     1388.61    1018.75   1.363    0.180    
+rankAssoc    -5826.40    1012.93  -5.752 7.28e-07 ***
+rankAsst    -11118.76    1351.77  -8.225 1.62e-10 ***
+sexFemale     1166.37     925.57   1.260    0.214    
+year           476.31      94.91   5.018 8.65e-06 ***
+ysdeg         -124.57      77.49  -1.608    0.115    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2398 on 45 degrees of freedom
+Multiple R-squared:  0.855, Adjusted R-squared:  0.8357 
+F-statistic: 44.24 on 6 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>In this revised regression model, Full Professor is now the baseline (reference) rank category, and the coefficients for rankAssoc and rankAsst reflect salary differences compared to Full Professors. The coefficient for rankAssoc is -5,826.40, suggesting that Associate Professors earn, on average, <code>$</code>5,826 less than Full Professors, while the coefficient for rankAsst is -11,118.76, indicating that Assistant Professors earn $11,119 less than Full Professors, assuming all other factors remain constant. Both differences are statistically significant (p &lt; 0.001), confirming that academic rank has a strong impact on salary, with Full Professors earning the highest, followed by Associate, and then Assistant Professors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>salary<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="fu">relevel</span>(salary<span class="sc">$</span>rank, <span class="at">ref =</span> <span class="st">"Asst"</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> rank <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, salary)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ degree + rank + sex + year + ysdeg, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4045.2 -1094.7  -361.5   813.2  9193.1 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 15746.05     800.18  19.678  &lt; 2e-16 ***
+degreePhD    1388.61    1018.75   1.363    0.180    
+rankProf    11118.76    1351.77   8.225 1.62e-10 ***
+rankAssoc    5292.36    1145.40   4.621 3.22e-05 ***
+sexFemale    1166.37     925.57   1.260    0.214    
+year          476.31      94.91   5.018 8.65e-06 ***
+ysdeg        -124.57      77.49  -1.608    0.115    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2398 on 45 degrees of freedom
+Multiple R-squared:  0.855, Adjusted R-squared:  0.8357 
+F-statistic: 44.24 on 6 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>In this regression output, Assistant Professor is the baseline category for the rank variable, and the coefficients for rankAssoc and rankProf show the salary differences relative to Assistant Professors. The coefficient for rankAssoc is 5,292.36, indicating that Associate Professors earn, on average, <code>$</code>5,292 more than Assistant Professors, while Full Professors (rankProf) earn approximately $11,119 more than Assistant Professors. Both coefficients are highly statistically significant (p &lt; 0.001), providing strong evidence that salary increases with academic rank. This pattern establishes a clear salary hierarchy, where Full Professors earn the highest salaries, followed by Associate Professors, and then Assistant Professors.</p>
+</section>
+<section id="e" class="level6">
+<h6 class="anchored" data-anchor-id="e">E</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, salary)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ degree + sex + year + ysdeg, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8146.9 -2186.9  -491.5  2279.1 11186.6 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 17183.57    1147.94  14.969  &lt; 2e-16 ***
+degreePhD   -3299.35    1302.52  -2.533 0.014704 *  
+sexFemale   -1286.54    1313.09  -0.980 0.332209    
+year          351.97     142.48   2.470 0.017185 *  
+ysdeg         339.40      80.62   4.210 0.000114 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3744 on 47 degrees of freedom
+Multiple R-squared:  0.6312,    Adjusted R-squared:  0.5998 
+F-statistic: 20.11 on 4 and 47 DF,  p-value: 1.048e-09</code></pre>
+</div>
+</div>
+<p>By excluding rank from the analysis, we address the potential issue of women being underrepresented in higher academic ranks due to possible discrimination. If female faculty earn significantly less than male faculty even after adjusting for degree, experience (years in rank), and years since degree, it strengthens the case for a gender-based salary gap. This approach supports Finkelstein’s argument that including rank in the regression could underestimate the true extent of salary discrimination, if the ranking process itself is biased. The results indicate a significant negative relationship between holding a PhD (degreePhD) and salary, with a decrease of about <code>$</code>3,299.35 compared to the baseline category (likely a Bachelor’s degree). The sexFemale variable is not statistically significant (p = 0.332), suggesting no strong evidence of a gender-based salary difference. The variable year shows a positive association with salary, with an increase of <code>$</code>351.97 for each additional year in rank, while ysdeg (years since degree) also has a positive relationship with salary, increasing by <code>$</code>339.40 for each additional year since obtaining the degree. The model explains a moderate amount of salary variability, with an R-squared value of 0.6312, meaning 63.12% of the variation in salary is accounted for by the predictors. The overall model is statistically significant with an F-statistic of 20.11 (p &lt; 0.001), suggesting that at least one of the predictors is useful for explaining salary. ###### F</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>salary<span class="sc">$</span>new_dean <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(salary<span class="sc">$</span>ysdeg <span class="sc">&lt;=</span> <span class="dv">15</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> rank <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> new_dean, <span class="at">data =</span> salary)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ degree + rank + sex + year + new_dean, 
+    data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3403.3 -1387.0  -167.0   528.2  9233.8 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 13328.38    1483.38   8.985 1.33e-11 ***
+degreePhD     818.93     797.48   1.027   0.3100    
+rankProf    11096.95    1191.00   9.317 4.54e-12 ***
+rankAssoc    4972.66     997.17   4.987 9.61e-06 ***
+sexFemale     907.14     840.54   1.079   0.2862    
+year          434.85      78.89   5.512 1.65e-06 ***
+new_dean     2163.46    1072.04   2.018   0.0496 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2362 on 45 degrees of freedom
+Multiple R-squared:  0.8594,    Adjusted R-squared:  0.8407 
+F-statistic: 45.86 on 6 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Multicollinearity arises in regression analysis when two or more explanatory variables are strongly correlated, which can distort coefficient estimates and inflate standard errors. In this case, the variables year (years in current rank) and ysdeg (years since highest degree) are likely to be highly correlated, as faculty typically begin their academic careers shortly after completing their degree. Including both variables in the same model could lead to multicollinearity, making it challenging to separate the individual effects of each predictor. To mitigate this, we excluded ysdeg from the model and kept year, as it is more directly linked to salary progression within academic ranks. Regarding the hypothesis that the new Dean offers higher salaries, the coefficient for new_dean is 2,163.46 with a p-value of 0.0496, which is just below the conventional 0.05 threshold for statistical significance. This provides moderate evidence in favor of the hypothesis: faculty hired under the new Dean earn, on average, $2,163 more than those hired before, after accounting for degree, rank, sex, and years in current rank. Thus, we find some support for the claim that the new Dean is offering higher salaries to newly hired faculty.</p>
+</section>
+</section>
+<section id="question-3" class="level3">
+<h3 class="anchored" data-anchor-id="question-3">Question 3</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(house.selling.price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="a-2" class="level6">
+<h6 class="anchored" data-anchor-id="a-2">A</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Size <span class="sc">+</span> New, house.selling.price)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Price ~ Size + New, data = house.selling.price)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-205102  -34374   -5778   18929  163866 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -40230.867  14696.140  -2.738  0.00737 ** 
+Size           116.132      8.795  13.204  &lt; 2e-16 ***
+New          57736.283  18653.041   3.095  0.00257 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 53880 on 97 degrees of freedom
+Multiple R-squared:  0.7226,    Adjusted R-squared:  0.7169 
+F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>The regression analysis offers several key insights into the relationship between salary and various factors such as degree, rank, sex, years of experience, and years since degree, along with their statistical significance. In the first model, the coefficient for degreePhD is -3,299.35 (p = 0.014704), showing that individuals with a PhD earn, on average, <code>$</code>3,299.35 less than those with lower levels of education, when controlling for other factors. The sexFemale coefficient is -1,286.54 (p = 0.332209), which is not statistically significant, suggesting no major salary difference between male and female employees in this dataset. The year variable has a positive and statistically significant coefficient of 351.97 (p = 0.017185), indicating that salary increases by approximately <code>$</code>351.97 for each additional year of experience. The ysdeg coefficient is 339.40 (p = 0.000114), signifying that salary increases by $339.40 for each additional year since obtaining the degree, and this relationship is statistically significant.</p>
+<p>In the second model, which focuses on rank, both rankAsst and rankProf are significant, with coefficients of -5,292.36 (p = 3.22e-05) and 5,826.40 (p = 7.28e-07), respectively. This suggests that Assistant Professors earn $5,292.36 less, while Professors earn $5,826.40 more than those in other ranks. The sexFemale variable remains non-significant with a coefficient of 1,166.37 (p = 0.214), and the year variable continues to have a significant positive effect on salary (476.31, p &lt; 0.001). The ysdeg variable is not statistically significant in this model (p = 0.115), indicating that there is no strong evidence of a relationship between years since degree and salary after accounting for rank.</p>
+<p>For the house price model, both Size and New are statistically significant. Size has a coefficient of 116.132 (p &lt; 2e-16), meaning that each additional square foot of house size increases the price by approximately <code>$</code>116.13. The New variable has a coefficient of 57,736.28 (p = 0.00257), suggesting that a new house costs, on average, <code>$</code>57,736.28 more than a non-new house. Additionally, the interaction term Size:New is significant (61.916, p = 0.00527), indicating that the price increase associated with house size is greater for new homes compared to non-new ones.</p>
+</section>
+<section id="b-2" class="level6">
+<h6 class="anchored" data-anchor-id="b-2">B</h6>
+<p>Based on the regression results, we can construct and interpret the prediction equation for estimating home prices and break it down into separate equations for new and non-new homes:</p>
+<p>Prediction Equation</p>
+<p>The general regression formula is:</p>
+<p>Price = β₀ + β₁ × Size + β₂ × New</p>
+<p>Substituting the estimated coefficients:</p>
+<p>Price = -40,230.87 + 116.13 × Size + 57,736.28 × New</p>
+<p>Interpretation • Intercept (-40,230.87): This represents the estimated price when the home size is zero and it is not new. While this value isn’t meaningful in a real-world context (a house can’t have 0 square feet), it’s essential for calculating prices. • Size (116.13): For each additional square foot, the predicted price increases by $116.13, regardless of whether the home is new. • New (57,736.28): Homes classified as new are priced $57,736.28 higher than similar-sized homes that are not new. This difference is statistically significant (p = 0.00257).</p>
+<p>Separate Equations • For non-new homes (New = 0): Price = -40,230.87 + 116.13 × Size • For new homes (New = 1): Price = -40,230.87 + 116.13 × Size + 57,736.28 Price = 17,505.41 + 116.13 × Size</p>
+<p>This means the slope (price per square foot) remains constant at <span class="math inline">\(116.13, but the intercept increases by `\)</span>`57,736.28 for new homes. Thus, at any size, new homes are consistently more expensive than non-new homes by the same amount.</p>
+</section>
+<section id="c-2" class="level5">
+<h5 class="anchored" data-anchor-id="c-2">C</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Size =</span> <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">3000</span>),</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">New =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>predicted_prices <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, newdata)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>predicted_prices</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1        2 
+365900.2 308163.9 </code></pre>
+</div>
+</div>
+<section id="d-1" class="level6">
+<h6 class="anchored" data-anchor-id="d-1">D</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Size <span class="sc">+</span> New <span class="sc">+</span> Size<span class="sc">*</span>New, house.selling.price)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Price ~ Size + New + Size * New, data = house.selling.price)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-175748  -28979   -6260   14693  192519 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -22227.808  15521.110  -1.432  0.15536    
+Size           104.438      9.424  11.082  &lt; 2e-16 ***
+New         -78527.502  51007.642  -1.540  0.12697    
+Size:New        61.916     21.686   2.855  0.00527 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 52000 on 96 degrees of freedom
+Multiple R-squared:  0.7443,    Adjusted R-squared:  0.7363 
+F-statistic: 93.15 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>This regression model uses house Size, whether a house is New, and their interaction (Size × New) to predict the Price. Here’s a breakdown of what each coefficient represents: 1. Intercept (-22,227.81, p = 0.15536) • Meaning: This is the predicted price for a non-new house with 0 square feet. While this has no real-world relevance (since homes can’t have 0 size), it serves as the model’s reference point. • Significance: Not statistically significant (p &gt; 0.05), suggesting the baseline value isn’t meaningfully different from zero. 2. Size (104.44, p &lt; 2e-16) • Meaning: For homes that are not new, each additional square foot increases the price by roughly $104.44. • Significance: Very statistically significant (p &lt; 0.001), indicating size is a strong predictor of price for non-new homes. 3. New (-78,527.50, p = 0.12697) • Meaning: For a 0 square foot home, being new would reduce the price by about $78,528 compared to a non-new home. But since a 0-size home isn’t realistic, this alone doesn’t have a useful interpretation. • Significance: Not statistically significant (p &gt; 0.05), so we can’t conclude that being a new home affects price independently at size zero. 4. Interaction (Size × New = 61.92, p = 0.00527) • Meaning: For new homes, each square foot adds $61.92 more than it does for old homes. So, the total size-related increase for new homes is $166.36 per square foot (104.44 + 61.92). • Significance: Statistically significant (p &lt; 0.01), meaning the relationship between size and price is significantly stronger for new homes than for old ones.</p>
+</section>
+<section id="e-1" class="level6">
+<h6 class="anchored" data-anchor-id="e-1">E</h6>
+<p>This regression model offers two separate equations to estimate home prices based on size and whether the home is new. For new homes, the formula is: Price = 17,505.42 + 116.13 × Size, incorporating the added value of being newly constructed.</p>
+<p>For older (not new) homes, the equation is: Price = -40,230.87 + 116.13 × Size.</p>
+<p>While both equations share the same slope—indicating that each additional square foot increases the price by <code>$</code>116.13—new homes have a higher baseline price by approximately $57,736, reflecting the typical premium for newer properties.</p>
+</section>
+<section id="f" class="level6">
+<h6 class="anchored" data-anchor-id="f">F</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Size =</span> <span class="fu">c</span>(<span class="dv">3000</span>, <span class="dv">3000</span>),</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">New =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>predicted_prices <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, newdata)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>predicted_prices</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1        2 
+398307.5 291087.4 </code></pre>
+</div>
+</div>
+</section>
+<section id="g" class="level6">
+<h6 class="anchored" data-anchor-id="g">G</h6>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>newdata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Size =</span> <span class="fu">c</span>(<span class="dv">1500</span>, <span class="dv">1500</span>),</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">New =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>predicted_prices <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, newdata)</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>predicted_prices</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1        2 
+148776.1 134429.8 </code></pre>
+</div>
+</div>
+<p>The predicted prices in (F) and (G) illustrate how the price gap between new and older homes widens with size. For a larger home (example F), the predicted price for a new home is <code>$</code>398,307.50, while the older home is <code>$</code>291,087.40, creating a difference of <code>$</code>107,220.10. For a smaller home (example G), the new home is priced at <code>$</code>148,776.10 and the older one at <code>$</code>134,429.80, yielding a much smaller gap of <code>$</code>14,346.30.</p>
+<p>This pattern shows that as home size increases, the price premium for new homes grows significantly. In other words, larger new homes are valued disproportionately higher than similarly sized older homes—demonstrating a clear interaction effect between size and newness. ###### H</p>
+<p>The model that includes the interaction term more accurately reflects the relationship between size, newness, and house price. In the simpler model without interaction, the effect of size on price is assumed to be the same regardless of whether the home is new—the only difference is in the intercept. In contrast, the interaction model allows the influence of size to vary depending on whether the house is new or not, which aligns better with reality.</p>
+<p>Earlier results showed that the price gap between new and older homes increases as size increases, indicating that the effect of size isn’t consistent across both types. This trend reveals a meaningful interaction: new homes gain more value per additional square foot than older ones. Because the interaction model captures this changing relationship, it provides more accurate predictions and a better overall fit when such variation exists, making it the more appropriate choice.</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

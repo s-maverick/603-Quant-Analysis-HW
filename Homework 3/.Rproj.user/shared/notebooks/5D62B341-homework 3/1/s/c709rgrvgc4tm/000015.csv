@@ -1,0 +1,5 @@
+"0","png(""scatterplot_matrix_prof_ratings.png"", width = 1600, height = 1600, res = 200)"
+"0","pairs(Rateprof[c(""quality"", ""helpfulness"", ""clarity"", ""easiness"", ""raterInterest"")],"
+"0","      main = ""Scatterplot Matrix of Professor Ratings"","
+"0","      pch = 21,"
+"0","      bg = ""lightblue"")"

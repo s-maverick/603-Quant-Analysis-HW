@@ -1,0 +1,3 @@
+"0","# Fit all subset models"
+"0","all_models <- regsubsets(P ~ S + Be + Ba + New, data = house.selling.price.2, nbest = 1, nvmax = 4)"
+"0","summary_all <- summary(all_models)"

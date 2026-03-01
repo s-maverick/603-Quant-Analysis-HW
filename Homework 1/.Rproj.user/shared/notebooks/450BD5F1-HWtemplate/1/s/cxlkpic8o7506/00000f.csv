@@ -1,0 +1,6 @@
+"0","prob = sum(data$Frequency[data$X <= 2]) / sum(data$Frequency)"
+"0","print(paste('Probability of having 2 or fewer convictions : ',prob))"
+"1","[1]"
+"1"," ""Probability of having 2 or fewer convictions :  0.815217391304348"""
+"1","
+"

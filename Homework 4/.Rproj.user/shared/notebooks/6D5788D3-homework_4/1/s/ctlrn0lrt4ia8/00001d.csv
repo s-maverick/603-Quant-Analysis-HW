@@ -1,0 +1,1 @@
+"0","summarise(filter(salary, sex == ""Male""), Avg_Salary_Male = mean(salary))"

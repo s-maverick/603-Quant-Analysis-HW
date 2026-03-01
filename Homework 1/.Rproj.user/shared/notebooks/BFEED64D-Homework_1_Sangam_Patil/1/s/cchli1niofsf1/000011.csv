@@ -1,0 +1,6 @@
+"0","prob = data$Frequency[data$X == 2] / sum(data$Frequency)"
+"0","print(paste('Probability of inmate has exactly 2 orior convictions : ',prob))"
+"1","[1]"
+"1"," ""Probability of inmate has exactly 2 orior convictions :  0.195652173913043"""
+"1","
+"

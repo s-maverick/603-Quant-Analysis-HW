@@ -1,0 +1,147 @@
+---
+title: "Homework-5"
+author: "Sangam Patil"
+date: "3 May 2025"
+format: pdf
+editor: visual
+execute: 
+  warning: false
+  message: false
+---
+
+# Question 1
+
+```{r}
+library(alr4)
+library(smss)
+library(ggplot2)
+library(dplyr)
+library(leaps)
+library(MASS)
+library(olsrr)
+```
+
+```{r}
+data(house.selling.price.2)
+model1 <- lm(P ~ S + Be + Ba + New, data = house.selling.price.2)
+summary(model1)
+```
+
+##### A. For backward elimination, which variable would be deleted first? Why?
+###### Answer:
+Beds would be deleted first. In backward elimination, we remove the least significant variable (highest p-value) first. Beds has a p-value of 0.487, which is much higher than any other variable in the model. This suggests it is not contributing meaningfully to the prediction of house price when controlling for the other variables.
+
+##### B. For forward selection, which variable would be added first? Why?
+###### Answer:
+Size would be added first. In forward selection, we add the variable with the strongest univariate relationship (lowest p-value or highest absolute correlation with the outcome) first. Since Size has the smallest p-value (essentially 0) and highest t-statistic (11.504), it is the most strongly associated with house price.
+
+##### C. Why do you think that BEDS has such a large P-value in the multiple regression model, even though it has a substantial correlation with PRICE?
+###### Answer:
+The reason is multicollinearity. Beds is correlated with other predictors, especially Size and possibly Baths. When Beds is included alongside Size and Baths, its unique contribution to predicting Price is minimal, because much of the variation in Price that Beds explains is already being accounted for by these other variables. Therefore, in the multiple regression context, its p-value is high, indicating it’s not adding unique predictive value.
+
+##### D. Using software with these four predictors, find the model that would be selected using each criterion:
+1. R2
+2. Adjusted R2
+3. PRESS
+4. AIC
+5. BIC
+
+```{r}
+# Fit all subset models
+all_models <- regsubsets(P ~ S + Be + Ba + New, data = house.selling.price.2, nbest = 1, nvmax = 4)
+summary_all <- summary(all_models)
+```
+
+```{r}
+# View R² and adjusted R²
+summary_all$rsq
+summary_all$adjr2
+```
+
+```{r}
+# AIC and BIC for each model using stepwise selection
+full_model <- lm(P ~ S + Be + Ba + New, data = house.selling.price.2)
+# AIC
+stepAIC(full_model, direction = "both", k = 2)
+```
+
+```{r}
+# BIC
+stepAIC(full_model, direction = "both", k = log(nrow(house.selling.price.2)))
+```
+
+```{r}
+# PRESS (Prediction Residual Error Sum of Squares)
+ols_press(full_model)
+```
+
+##### E. Explain which model you prefer and why.
+###### Answer:
+I prefer the model P ~ S + Ba + New. Although the full model has a slightly higher R², the simpler model has better values across all other criteria: lower AIC, BIC, and PRESS, and nearly identical adjusted R². The variable Beds adds little value, so excluding it results in a more parsimonious model that likely generalizes better to new data.<br>
+Reasoning:<br>
+	1.	Adjusted R² is nearly the same as the full model, indicating this model explains most of the variability without overfitting.<br>
+	2.	AIC and BIC are both lower for this model compared to the full model – suggesting better out-of-sample performance and parsimony.<br>
+	3.	PRESS is lowest – meaning this model likely generalizes better to unseen data.<br>
+	4.	“Beds” (Be) contributes very little (low t-statistic, high p-value) and increases complexity without much gain, so removing it improves model simplicity and fit.<br>
+	
+
+# Question 2
+
+##### A. Fit a multiple regression model
+
+```{r}
+data(trees)
+model_trees <- lm(Volume ~ Girth + Height, data = trees)
+summary(model_trees)
+```
+
+##### B. Regression Model Diagnostic Plots
+
+```{r}
+par(mfrow = c(2, 2))
+plot(model_trees)
+```
+
+Here,
+1. Residuals vs Fitted Plot: This plot should show a random scatter of residuals around the horizontal line. However, there is a slight curve, especially at the lower and higher fitted values, indicating potential non-linearity. This suggests that the linear relationship may not fully capture the structure in the data—possibly a transformation of variables (e.g., log or polynomial) might improve the model.<br>
+2. Normal Q-Q Plot: The points mostly follow the diagonal line, though there is some deviation at the tails, particularly for points like 31. This indicates minor deviations from normality, but overall it is not severe.<br>
+3. Scale-Location Plot (Homoscedasticity Check): This plot should have a horizontal line with points spread equally. Here, the red line shows a slight upward trend, suggesting mild heteroscedasticity—variance of residuals may be increasing with fitted values. It’s not extremely strong, but it’s worth noting.<br>
+4. Residuals vs Leverage Plot: This plot helps identify influential observations. Observation 31 stands out with high leverage and moderately large residuals. However, none of the points exceed Cook’s distance thresholds (0.5 or 1), so while some influence is present, no extreme outliers dominate the model.<br>
+
+
+# Question 3
+
+##### A
+
+```{r}
+data(florida)
+model1 <- lm(Buchanan ~ Bush, data = florida)
+summary(model1)
+```
+
+```{r}
+par(mfrow = c(2, 2))
+plot(model1)
+```
+
+Yes, Palm Beach County is clearly an outlier in the simple linear regression model where Buchanan votes are regressed on Bush votes.<br>
+Interpreting the plots:<br>
+1. Residuals vs Fitted Plot: Palm Beach shows an unusually large positive residual, indicating the model significantly underpredicts the Buchanan votes for that county. This suggests an anomaly relative to the overall trend.<br>
+2. Q-Q Plot: The residual for Palm Beach deviates substantially from the theoretical quantile line, signaling a violation of the normality assumption due to this extreme observation.<br>
+3. Scale-Location Plot: The standardized residual for Palm Beach stands out, suggesting non-constant variance (heteroscedasticity) caused largely by this observation.<br>
+4. Residuals vs Leverage Plot: Palm Beach has high leverage and an extreme standardized residual, which gives it a large Cook’s distance—placing it well above the 0.5 and even 1.0 influence thresholds. This confirms it’s a highly influential point in the model.<br>
+Palm Beach County is an influential outlier, both statistically and visually, as it significantly impacts the regression results and violates key assumptions of linear regression. This supports the hypothesis that an irregular event (like the butterfly ballot design) may have distorted the voting outcome in that county.
+
+##### B
+
+```{r}
+model2 <- lm(log(Buchanan) ~ log(Bush), data = florida)
+summary(model2)
+```
+
+```{r}
+par(mfrow = c(2, 2))
+plot(model2)
+```
+
+After applying a log-transformation to both the Bush vote and Buchanan vote variables, the regression diagnostic plots show a marked improvement in meeting the assumptions of linear regression. Palm Beach County, which previously appeared as a clear outlier with high residuals and leverage, now exhibits a much more moderate influence. In the Residuals vs Fitted plot, the residual for Palm Beach is still slightly elevated but no longer extreme. The Q-Q plot indicates that the standardized residuals are closer to a normal distribution, and Palm Beach’s point is less of an outlier compared to the untransformed model. The Scale-Location plot also shows more uniform variance across fitted values, suggesting improved homoscedasticity. Furthermore, in the Residuals vs Leverage plot, Palm Beach has lower leverage and Cook’s distance, indicating reduced influence on the model. Overall, the log-transformation has improved the model fit and reduced the prominence of Palm Beach as an outlier, suggesting that the previous issues were due in part to non-linear scaling in the original data. Thus, my findings change, Palm Beach is no longer a severe outlier in the log-transformed model, indicating that the original issue was likely due to non-linear scaling, which the log transformation helps correct.

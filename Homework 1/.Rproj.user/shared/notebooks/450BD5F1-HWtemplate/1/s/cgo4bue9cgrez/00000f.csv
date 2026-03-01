@@ -1,0 +1,5 @@
+"0","ggplot(df, aes(x = LungCap)) +"
+"0","  geom_histogram() +"
+"0","  facet_grid(AgeCat ~ Gender)"
+"1","[38;5;232m`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.[39m
+"

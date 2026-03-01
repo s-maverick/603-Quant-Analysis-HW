@@ -1,0 +1,308 @@
+---
+title: "Homework 4"
+author: "Sangam Patil"
+date: "18 April 2025"
+format: html
+editor: visual
+---
+
+```{r}
+library('alr4')
+library('smss')
+library('tidyverse')
+```
+
+### Question 1
+
+###### A
+
+```{r}
+house_price_model <- function(x1, x2, actual_price) {
+  predicted_price <- (-15000 + 25000 * x1 + 15000 * x2)
+  residual <- actual_price - predicted_price
+  return(c(predicted_price, residual))
+}
+```
+
+```{r}
+A <- house_price_model(3, 2, 160000)
+print("For a home with 3 bedrooms and 2 bathrooms sold for $160,000:")
+print(paste("Predicted Value: ", A[1]))
+print(paste("Residual Value: ", A[2]))
+```
+
+The model underestimated the price by $70,000 for this home. This means the actual selling price was significantly higher than what the model expected based on bedrooms and bathrooms alone.
+
+###### B
+
+```{r}
+for (i in 1:10){
+  p <- house_price_model(i, 2, 0)
+  print(paste("Predicted Price for", i, "bedrooms and 2 bathrooms : ", p[1]))
+}
+```
+
+Interpretation:
+	1. Each additional bedroom (holding bathrooms constant at 2) increases the predicted selling price by about $25,000.
+	2. This suggests a linear relationship between number of bedrooms and selling price when bathrooms are held constant.
+
+```{r}
+for (i in seq(0.5, 5, 0.5)){
+  p <- house_price_model(3, i, 0)
+  print(paste("Predicted Price for 3 bedrooms and", i, "bathrooms : ", p[1]))
+}
+```
+
+Interpretation:
+	1. Each additional half bathroom increases the predicted price by $7,500.
+	2. Again, we see a consistent, linear pattern.
+
+###### C
+
+Here:
+	1. One additional bedroom increases the price by $25,000.
+	2. One additional half bathroom increases the price by $7,500.
+
+So, to match the $25,000 impact of one bedroom, we divide:
+25,000 / 7,500 = 3.33
+
+So, to have the same impact on selling price as adding one bedroom, you would need to add approximately 3.33 half bathrooms — or 1.67 full bathrooms (since 2 half baths = 1 full bath). Thus, about 1.67 (approx 2) full bathrooms are needed to match the price increase of one bedroom, assuming a linear relationship and other features held constant.
+
+
+### Question 2
+
+```{r}
+data("salary")
+```
+
+###### A
+
+```{r}
+summarise(filter(salary, sex == "Male"), Avg_Salary_Male = mean(salary))
+```
+
+```{r}
+summarise(filter(salary, sex == "Female"), Avg_Salary_Female = mean(salary))
+```
+
+```{r}
+model1 <- lm(salary ~ degree + rank + sex + year + ysdeg, salary)
+summary(model1)
+```
+
+We are testing:
+	1. Null hypothesis (H₀): Mean salary for men = Mean salary for women
+	2. Alternative hypothesis (H₁): Mean salary for men ≠ Mean salary for women
+
+This checks whether the difference in mean salaries between men and women is statistically significant, without adjusting for any other variable. If the sexFemale coefficient is significant (p-value < 0.05), we reject the null and say that sex is associated with salary. This tells us that women earn on average $1166 more than men, after controlling for degree, rank, year, and years since degree. However, the p-value = 0.214, which is not statistically significant at the 0.05 level. So we fail to reject the null hypothesis. There is no strong evidence that men and women have different salaries after accounting for other variables.
+
+###### B
+
+```{r}
+model <- lm(salary ~ degree + rank + sex + year + ysdeg, salary)
+confint(model, level = 0.95)
+```
+
+###### C
+
+1. Intercept: 21,038.41
+	•	Statistical Significance: Highly significant (p < 2e-16)
+	•	Interpretation: The baseline salary for an Assistant Professor with a Master’s degree, Male, with 0 years in rank and 0 years since degree.
+This value sets the foundation from which other effects are added or subtracted.
+
+2. degreePhD: 1,388.61
+	•	Statistical Significance: Not significant (p = 0.180, 95% CI includes 0)
+	•	Interpretation: On average, holding all else constant, faculty with a PhD earn $1,388 more than those with a Master’s degree.
+However, since the result is not statistically significant, we cannot confidently say this difference is real.
+
+3. rankAsst: –5,292.36
+	•	Statistical Significance: Significant (p < 0.001)
+	•	Interpretation: Compared to Associate Professors (reference group), Assistant Professors earn about $5,292 less, all else held constant.
+This confirms the expected salary increase with rank progression.
+
+4. rankProf: 5,826.40
+	•	Statistical Significance: Significant (p < 0.001)
+	•	Interpretation: Full Professors earn about $5,826 more than Associate Professors (reference group), holding all other variables constant.
+A clear and significant promotion-related salary bump.
+
+5. sexFemale: 1,166.37
+	•	Statistical Significance: Not significant (p = 0.214, CI includes 0)
+	•	Interpretation: Female faculty earn approximately $1,166 more than males, but this difference is not statistically significant.
+So, we do not find evidence of a salary difference by gender after controlling for education, rank, and experience.
+
+6. year (Years in Rank): 476.31
+	•	Statistical Significance: Significant (p < 0.001)
+	•	Interpretation: For every additional year in the current rank, salary increases by $476 on average.
+Experience within rank is associated with salary growth.
+
+7. ysdeg (Years Since Degree): –124.57
+	•	Statistical Significance: Not significant (p = 0.115)
+	•	Interpretation: Each additional year since earning the highest degree is associated with a $124 decrease in salary, on average, holding other variables constant.
+This might suggest salary stagnation or negative seniority effect over time, but the result is not significant.
+
+###### D
+
+```{r}
+salary$rank <- relevel(salary$rank, ref = "Assoc")
+model1 <- lm(salary ~ degree + rank + sex + year + ysdeg, salary)
+summary(model1)
+```
+
+In this regression model, the variable rank compares Assistant and Full Professors to the reference group, Associate Professors. The coefficient for rankAsst is -5292.36, indicating that Assistant Professors earn, on average, `$`5,292 less than Associate Professors, while the coefficient for rankProf is 5826.40, meaning Full Professors earn about `$`5,826 more than Associate Professors, controlling for other variables in the model. Both coefficients are statistically significant (p < 0.001), suggesting that academic rank is a strong and meaningful predictor of salary, with higher ranks associated with higher pay.
+
+```{r}
+salary$rank <- relevel(salary$rank, ref = "Prof")
+model1 <- lm(salary ~ degree + rank + sex + year + ysdeg, salary)
+summary(model1)
+```
+
+In this updated regression model, the baseline (reference) rank category is now Full Professor, and the coefficients for rankAssoc and rankAsst represent salary differences relative to Full Professors. The coefficient for rankAssoc is -5826.40, meaning Associate Professors earn `$`5,826 less than Full Professors on average, while rankAsst is -11,118.76, indicating Assistant Professors earn `$`11,119 less than Full Professors, all else being equal. Both differences are statistically significant (p < 0.001), reaffirming that academic rank strongly influences salary, with Full Professors earning the most, followed by Associate, then Assistant Professors.
+
+```{r}
+salary$rank <- relevel(salary$rank, ref = "Asst")
+model1 <- lm(salary ~ degree + rank + sex + year + ysdeg, salary)
+summary(model1)
+```
+
+In this regression output, the baseline category for the rank variable is Assistant Professor. The coefficients for rankAssoc and rankProf represent differences in salary compared to Assistant Professors. The estimate for rankAssoc is 5292.36, meaning Associate Professors earn approximately `$`5,292 more than Assistant Professors on average, while Full Professors (rankProf) earn about `$`11,119 more than Assistant Professors. Both coefficients are highly statistically significant (p < 0.001), indicating strong evidence that salary increases with academic rank. This pattern confirms a clear salary hierarchy where Full Professors earn the most, followed by Associate Professors, then Assistant Professors.
+
+###### E
+
+```{r}
+model1 <- lm(salary ~ degree + sex + year + ysdeg, salary)
+summary(model1)
+```
+
+By excluding rank, we account for the possibility that women may be underrepresented in higher ranks due to discrimination. If we observe that female faculty earn significantly less than male faculty even after controlling for degree, experience (year), and years since degree (ysdeg) — that strengthens the case for a potential gender-based salary gap. This approach aligns with Finkelstein’s argument: if the process of awarding rank is itself biased, including it in the regression will underestimate the true extent of discrimination in salary. The results show a significant negative association between having a PhD (degreePhD) and salary, with a decrease of approximately `$`3,299.35 compared to the baseline category (likely Bachelor’s degree). The variable sexFemale is not statistically significant (p = 0.332), indicating no strong evidence of a gender-based salary difference. The variable year is positively associated with salary, with a `$`351.97 increase for each additional year, and ysdeg (years since degree) has a positive relationship with salary as well, increasing by `$`339.40 for each additional year since obtaining the degree. The model has a moderate fit, with an R-squared value of 0.6312, meaning about 63.12% of the variability in salary is explained by the predictors. The overall model is statistically significant with an F-statistic of 20.11 (p < 0.001), suggesting that at least one of the predictors is useful in explaining salary.
+
+###### F
+
+```{r}
+salary$new_dean <- ifelse(salary$ysdeg <= 15, 1, 0)
+```
+
+```{r}
+model2 <- lm(salary ~ degree + rank + sex + year + new_dean, data = salary)
+summary(model2)
+```
+
+Multicollinearity is a concern in regression analysis when two or more explanatory variables are highly correlated, which can distort the estimated coefficients and inflate standard errors. In this context, both year (years in current rank) and ysdeg (years since highest degree) are likely to be highly correlated, since faculty typically begin their academic careers soon after earning their degree. Including both variables in the same model could therefore lead to multicollinearity, making it difficult to isolate the individual effect of each predictor. To avoid this issue, we excluded ysdeg from the model and retained year, as it is more directly tied to the salary progression within academic ranks. Regarding the hypothesis that the new Dean offers more generous salaries, the coefficient for new_dean is 2163.46 with a p-value of 0.0496, which is just below the typical 0.05 threshold for statistical significance. This suggests moderate evidence in support of the hypothesis: faculty hired under the new Dean earn, on average, $2,163 more than those hired before, controlling for degree, rank, sex, and years in current rank. Therefore, we find support for the claim that the new Dean has been offering higher salaries to newly hired faculty.
+
+
+### Question 3
+
+```{r}
+data(house.selling.price)
+```
+
+###### A
+
+```{r}
+model <- lm(Price ~ Size + New, house.selling.price)
+summary(model)
+```
+
+The regression analysis provides several insights into the relationship between salary and various factors such as degree, rank, sex, year, and years since the degree (ysdeg), as well as their statistical significance. In the first model, the coefficient for degreePhD is -3299.35, which is statistically significant (p = 0.014704), indicating that individuals with a PhD earn, on average, `$`3,299.35 less than those with lower levels of education, holding other factors constant. The sexFemale coefficient is -1286.54 (p = 0.332209), which is not significant, suggesting no substantial salary difference between male and female employees in this dataset. The year variable has a positive and statistically significant coefficient of 351.97 (p = 0.017185), meaning that salary increases by approximately `$`351.97 for each additional year of experience. The ysdeg coefficient is 339.40 (p = 0.000114), indicating that salary increases by `$`339.40 for each additional year since obtaining the degree, and this relationship is statistically significant. In the second model, focusing on the rank, rankAsst and rankProf are significant, with coefficients of -5292.36 (p = 3.22e-05) and 5826.40 (p = 7.28e-07), respectively. This suggests that Assistant Professors earn `$`5,292.36 less, and Professors earn `$`5,826.40 more compared to individuals in other ranks. The sexFemale variable remains non-significant with a coefficient of 1166.37 (p = 0.214), while year remains significant with a positive effect on salary (476.31, p < 0.001). The variable ysdeg is not statistically significant in this model (p = 0.115), indicating no strong evidence of a relationship between years since the degree and salary after accounting for rank. For the house price model, Size and New are both statistically significant. Size has a coefficient of 116.132 (p < 2e-16), meaning that for each additional square foot of house size, the price increases by approximately `$`116.13. The New variable, with a coefficient of 57736.283 (p = 0.00257), indicates that a new house costs, on average, `$`57,736.28 more than a non-new house. The interaction term Size:New is also significant (61.916, p = 0.00527), suggesting that the price increase associated with house size is higher for new homes compared to non-new ones.
+
+###### B
+
+Based on the regression output, we can report and interpret the prediction equation and derive separate equations for new and not new homes:
+
+Prediction Equation
+
+The regression model is:
+
+Price = beta_0 + beta_1 * Size + beta_2 * New
+
+Plugging in the values from the output:
+
+Price = -40,230.87 + 116.13 * Size + 57,736.28 * New
+
+Interpretation
+	•	Intercept (-40,230.87): This is the estimated base price when size = 0 and the house is not new. It has limited practical meaning but is necessary for the equation.
+	•	Size (116.13): Each additional square foot increases the selling price by $116.13, regardless of whether the house is new or not.
+	•	New (57,736.28): A new house costs on average $57,736.28 more than a non-new house of the same size. This is statistically significant (p = 0.00257).
+
+Separate Equations
+
+For Not New Homes (New = 0):
+
+Price = -40,230.87 + 116.13* Size
+
+For New Homes (New = 1):
+
+Price = -40,230.87 + 116.13 *Size + 57,736.28
+Price = 17,505.41 + 116.13 *Size
+
+So, the difference lies in the intercept (starting price), while the price per square foot remains the same for both. New homes are consistently priced higher by $57,736.28 at any given size.
+
+##### C
+
+```{r}
+newdata <- data.frame(
+  Size = c(3000, 3000),
+  New = c(1, 0)
+)
+
+predicted_prices <- predict(model, newdata)
+predicted_prices
+```
+
+###### D
+
+```{r}
+model <- lm(Price ~ Size + New + Size*New, house.selling.price)
+summary(model)
+```
+
+In this regression model, the selling price of a house (Price) is predicted based on its size (Size), whether it is new (New), and an interaction between Size and New (Size:New). Here’s the interpretation and significance for each coefficient:
+
+1. Intercept (-22227.81, p = 0.15536)
+	•	Interpretation: This is the predicted price for a not new home of size 0, which doesn’t have a practical interpretation in this context, but serves as the model’s baseline.
+	•	Significance: Not statistically significant (p > 0.05), indicating this intercept does not differ significantly from zero.
+
+2. Size (104.44, p < 2e-16)
+	•	Interpretation: For homes that are not new, each additional square foot is associated with an increase in price of approximately $104.44.
+	•	Significance: Highly significant (p < 0.001), meaning size is a strong predictor of house price.
+
+3. New (-78527.50, p = 0.12697)
+	•	Interpretation: For a home of size 0, being new decreases the base price by about $78,528 compared to an old home. However, since size 0 isn’t practical, this coefficient alone shouldn’t be interpreted directly.
+	•	Significance: Not statistically significant (p > 0.05), so we do not have strong evidence that newness affects price independently when size is zero.
+
+4. Interaction: Size*New (61.92, p = 0.00527)
+	•	Interpretation: For new homes, each additional square foot increases the price by $61.92 more than it would for old homes. So, for new homes, the total size effect is 104.44 + 61.92 = $166.36 per square foot.
+	•	Significance: Statistically significant (p < 0.01), indicating the relationship between size and price differs significantly between new and old homes.
+
+###### E
+
+The regression model provides separate equations for predicting the selling price of homes based on their size and whether they are new. For new homes, the predicted selling price is given by: Price = 17,505.42 + 116.13 × Size, which includes the base effect of being a new home. For not new homes, the equation is: Price = -40,230.87 + 116.13 × Size. Both types of homes have the same slope, meaning the price increases by about $116.13 for each additional square foot. However, new homes have a higher starting price by about $57,736, reflecting the premium associated with being newly built.
+
+###### F
+
+```{r}
+newdata <- data.frame(
+  Size = c(3000, 3000),
+  New = c(1, 0)
+)
+
+predicted_prices <- predict(model, newdata)
+predicted_prices
+```
+
+###### G
+
+```{r}
+newdata <- data.frame(
+  Size = c(1500, 1500),
+  New = c(1, 0)
+)
+
+predicted_prices <- predict(model, newdata)
+predicted_prices
+```
+
+The predicted selling prices in (F) and (G) show how the price difference between new and not new homes changes with size. At a larger home size (as seen in F), the new home is priced at `$`398,307.5, while the not new home is `$`291,087.4, a difference of `$`107,220.1. In contrast, at a smaller size (as seen in G), the new home is priced at `$`148,776.1, and the not new home at `$`134,429.8, a smaller difference of `$`14,346.3. This shows that as home size increases, the gap in predicted price between new and not new homes becomes much larger. In other words, the price premium for new homes grows with size, suggesting an interaction effect—larger new homes are valued significantly more compared to similarly sized older homes.
+
+###### H
+
+The model with the interaction term better represents the relationship between size, new, and the outcome price. In the model without interaction, the effect of size on price is assumed to be the same for both new and not new homes—only the intercept changes based on whether the house is new. However, the interaction model allows the effect of size to differ depending on the home’s condition, which is more realistic. From previous results, we saw that the price difference between new and not new homes grows as size increases, which suggests that the impact of size is not uniform across both categories. This pattern indicates a meaningful interaction: new homes gain more value per additional square foot than not new homes. Therefore, the interaction model is preferred because it captures this changing relationship, leading to more accurate predictions and a better fit to the data when such differences exist.

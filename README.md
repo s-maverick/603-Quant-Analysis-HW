@@ -1,1 +1,1 @@
-# 603-Quant-Analysis-HW
+# Quantitative Analysis Homework

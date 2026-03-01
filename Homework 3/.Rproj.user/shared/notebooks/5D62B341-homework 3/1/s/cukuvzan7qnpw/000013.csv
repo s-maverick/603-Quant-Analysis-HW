@@ -1,0 +1,9 @@
+"0","ggplot(data = student.survey, aes(x = tv, y = hi)) +"
+"0","  geom_point() +"
+"0","  geom_smooth(method = 'lm') +"
+"0","  labs(x = ""Hours of TV Watching"","
+"0","       y = ""High School GPA"","
+"0","       title = ""Relationship between High School GPA and Hours of TV Watching"") +"
+"0","  theme_bw()"
+"1","[38;5;232m`geom_smooth()` using formula = 'y ~ x'[39m
+"
