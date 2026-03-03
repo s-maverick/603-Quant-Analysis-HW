@@ -1,5 +1,7 @@
 # Quantitative Analysis: Coursework & Implementation
 
+## University of Massachusetts, Amherst [DACSS 603]
+
 This repository contains a collection of homework assignments completed during my Quantitative Analysis curriculum. The focus of this work is the application of mathematical and statistical methods to solve complex data problems.
 
 ## Key Areas Covered:
